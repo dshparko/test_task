@@ -7,21 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/user")
-@Data
-public class UserController {
+import java.util.List;
 
+@RestController
+@RequestMapping("/api/admin/users")
+@Data
+public class AdminController {
     private final UserService service;
 
-    @GetMapping("/{id}")
-    public UserDto userById(@PathVariable("id") Long id) {
-        return service.getUser(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(dto));
+    @GetMapping
+    public List<UserDto> findAll() {
+        return service.findAllUsers();
     }
 
     @PutMapping("/{id}")
