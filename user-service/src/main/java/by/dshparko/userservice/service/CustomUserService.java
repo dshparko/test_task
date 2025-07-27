@@ -14,6 +14,10 @@ import java.util.Collections;
 public class CustomUserService implements UserDetailsService {
     private final UserRepository repository;
 
+    public boolean existsByUsername(String username) {
+        return repository.findByUsername(username).isPresent();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByUsername(username)
