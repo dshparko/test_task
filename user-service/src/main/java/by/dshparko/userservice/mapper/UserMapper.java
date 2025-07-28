@@ -2,10 +2,16 @@ package by.dshparko.userservice.mapper;
 
 import by.dshparko.userservice.database.entity.User;
 import by.dshparko.userservice.dto.UserDto;
+import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Data
 public class UserMapper {
+
+    private final PasswordEncoder encoder;
+
     public UserDto toDto(User user) {
         return new UserDto(
                 user.getId(),
@@ -25,7 +31,7 @@ public class UserMapper {
         user.setFirstname(dto.firstname());
         user.setLastname(dto.lastname());
         user.setEmail(dto.email());
-        user.setPassword(dto.password());
+        user.setPassword(encoder.encode(dto.password()));
         user.setRole(dto.role());
         return user;
     }

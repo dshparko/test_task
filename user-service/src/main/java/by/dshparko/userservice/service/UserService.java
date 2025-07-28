@@ -32,7 +32,6 @@ public class UserService {
     public UserDto createUser(UserDto dto) {
         User user = repository.save(mapper.toEntity(dto));
         return mapper.toDto(user);
-
     }
 
     @Transactional
