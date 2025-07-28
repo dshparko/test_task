@@ -11,12 +11,8 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository repository;
-
-    public boolean existsByUsername(String username) {
-        return repository.findByUsername(username).isPresent();
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
