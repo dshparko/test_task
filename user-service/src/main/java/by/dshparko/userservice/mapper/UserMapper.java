@@ -19,7 +19,7 @@ public class UserMapper {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getEmail(),
-                user.getPassword(),
+                encoder.encode(user.getPassword()),
                 user.getRole()
         );
     }

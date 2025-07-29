@@ -2,6 +2,7 @@ package by.dshparko.userservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,6 +29,12 @@ public class ApiErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleBadRequest(HttpMessageNotReadableException ex) {
         return Map.of("error", "Invalid request body");
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Map<String, String> handleNotAccept(HttpMessageNotReadableException ex) {
+        return Map.of("error", "You don't have enough rights");
     }
 
     @ExceptionHandler(Exception.class)

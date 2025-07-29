@@ -2,6 +2,7 @@ package by.dshparko.userservice.http.rest;
 
 import by.dshparko.userservice.dto.UserDto;
 import by.dshparko.userservice.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -23,18 +24,18 @@ public class AdminController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody
-                                              @Valid UserDto dto) {
+                                              @Valid UserDto dto) throws JsonProcessingException {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(dto));
     }
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable("id") Long id,
-                          @RequestBody @Valid UserDto dto) {
+                          @RequestBody @Valid UserDto dto) throws JsonProcessingException {
         return service.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) throws JsonProcessingException {
         service.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

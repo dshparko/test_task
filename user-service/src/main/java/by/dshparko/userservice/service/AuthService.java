@@ -4,6 +4,7 @@ import by.dshparko.userservice.dto.AuthDto;
 import by.dshparko.userservice.dto.AuthenticationResponse;
 import by.dshparko.userservice.dto.UserDto;
 import by.dshparko.userservice.security.JwtUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +30,7 @@ public class AuthService {
         return new AuthenticationResponse(token);
     }
 
-    public UserDto register(UserDto request) {
+    public UserDto register(UserDto request) throws JsonProcessingException {
         return userService.createUser(request);
     }
 }
