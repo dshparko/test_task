@@ -2,7 +2,7 @@ package by.dshparko.userservice.config;
 
 import by.dshparko.userservice.security.JwtAuthenticationFilter;
 import by.dshparko.userservice.service.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,7 @@ import static by.dshparko.userservice.database.entity.Role.ADMIN;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
+@Data
 public class SecurityConfiguration {
 
     private final CustomUserDetailsService userDetailsService;
@@ -37,7 +37,8 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         var builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        builder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
         return builder.build();
     }
 

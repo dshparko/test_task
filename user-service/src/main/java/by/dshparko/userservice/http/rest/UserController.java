@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
+
 @RestController
 @RequestMapping("/api/user")
 @Data
@@ -17,24 +19,18 @@ public class UserController {
     private final UserService service;
 
     @GetMapping("/{id}")
-    public UserDto userById(@PathVariable("id") Long id) {
+    public UserDto userById(@PathVariable("id") Long id) throws AccessDeniedException {
         return service.getUser(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody
-                                              @Valid UserDto dto) throws JsonProcessingException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(dto));
     }
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable("id") Long id,
-                          @RequestBody @Valid UserDto dto) throws JsonProcessingException {
+                          @RequestBody @Valid UserDto dto) throws JsonProcessingException, AccessDeniedException {
         return service.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) throws JsonProcessingException {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) throws JsonProcessingException, AccessDeniedException {
         service.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -30,12 +31,12 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable("id") Long id,
-                          @RequestBody @Valid UserDto dto) throws JsonProcessingException {
+                          @RequestBody @Valid UserDto dto) throws JsonProcessingException, AccessDeniedException {
         return service.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) throws JsonProcessingException {
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) throws JsonProcessingException, AccessDeniedException {
         service.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
