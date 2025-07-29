@@ -4,9 +4,11 @@ import by.dshparko.userservice.database.entity.Role;
 import by.dshparko.userservice.database.entity.User;
 import by.dshparko.userservice.database.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class AdminService {
 
