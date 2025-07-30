@@ -45,7 +45,7 @@ public class UserService {
     @Transactional
     public UserDto createUser(UserDto dto) throws JsonProcessingException {
         User user = repository.save(mapper.toEntity(dto));
-        notificationProducer.sendUserEvent(UserAction.CREATE, mapper.toEmailDto(user));
+        notificationProducer.sendUserEvent(UserAction.CREATE, dto);
         return mapper.toDto(user);
     }
 
@@ -64,7 +64,7 @@ public class UserService {
         user.setRole(isAdmin ? dto.role() : user.getRole());
 
         User updated = repository.save(user);
-        notificationProducer.sendUserEvent(UserAction.UPDATE, mapper.toEmailDto(updated));
+        notificationProducer.sendUserEvent(UserAction.UPDATE, dto);
 
         return mapper.toDto(updated);
     }
