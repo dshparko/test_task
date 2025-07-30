@@ -20,7 +20,7 @@ spring.mail.password=your password
 - docker-compose build
 - docker-compose up --detach
  ```
-### Для просмотра эндпоинтов и их тестирования после запуска сервисов можно воспользоваться ссылкой на [документацию](http://localhost:8080/swagger-ui/index.html#/)
+### Для просмотра эндпоинтов и их тестирования после запуска сервисов можно воспользоваться ссылкой на [документацию](http://localhost:8083/swagger-ui/index.html#/)
 
 ### Тестовые данные пользователей:
  ```bash
