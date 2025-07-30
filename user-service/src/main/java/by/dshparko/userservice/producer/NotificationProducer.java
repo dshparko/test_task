@@ -27,7 +27,7 @@ public class NotificationProducer {
         List<String> adminEmails = adminService.getAdminEmails();
 
         for (String admin : adminEmails) {
-            UserEvent event = new UserEvent(type, user.username(), admin, user.password());
+            UserEvent event = new UserEvent(type, user.username(), admin, user.password(), user.email());
             String message = objectMapper.writeValueAsString(event);
             kafkaTemplate.send(topic, message);
         }

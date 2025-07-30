@@ -21,7 +21,7 @@ public class EmailService {
     public void send(UserEvent event) throws MessagingException {
         var message = mailSender.createMimeMessage();
         var helper = new MimeMessageHelper(message, "UTF-8");
-        helper.setTo(event.email());
+        helper.setTo(event.adminEmail());
         helper.setSubject(subjectBuilder.build(event));
         helper.setText(messageBuilder.build(event), false);
         mailSender.send(message);

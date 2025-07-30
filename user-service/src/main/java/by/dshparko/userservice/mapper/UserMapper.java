@@ -2,12 +2,12 @@ package by.dshparko.userservice.mapper;
 
 import by.dshparko.userservice.database.entity.User;
 import by.dshparko.userservice.dto.UserDto;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@Data
+@RequiredArgsConstructor
 public class UserMapper {
 
     private final PasswordEncoder encoder;
@@ -19,20 +19,36 @@ public class UserMapper {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getEmail(),
-                encoder.encode(user.getPassword()),
+                encode(user.getPassword()),
                 user.getRole()
         );
     }
 
     public User toEntity(UserDto dto) {
-        User user = new User();
-        user.setId(dto.id());
-        user.setUsername(dto.username());
-        user.setFirstname(dto.firstname());
-        user.setLastname(dto.lastname());
-        user.setEmail(dto.email());
-        user.setPassword(encoder.encode(dto.password()));
-        user.setRole(dto.role());
-        return user;
+        return User.builder()
+                .id(dto.id())
+                .username(dto.username())
+                .firstname(dto.firstname())
+                .lastname(dto.lastname())
+                .email(dto.email())
+                .password(encode(dto.password()))
+                .role(dto.role())
+                .build();
+    }
+
+    public UserDto toEmailDto(User user) {
+        return new UserDto(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole()
+        );
+    }
+
+    private String encode(String password) {
+        return password != null ? encoder.encode(password) : null;
     }
 }
